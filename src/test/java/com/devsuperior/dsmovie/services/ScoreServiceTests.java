@@ -11,6 +11,7 @@ public class ScoreServiceTests {
 	@InjectMocks
 	private ScoreService service;
 	
+	/*
 	@Test
 	public void saveScoreShouldReturnMovieDTO() {
 	}
@@ -18,4 +19,5 @@ public class ScoreServiceTests {
 	@Test
 	public void saveScoreShouldThrowResourceNotFoundExceptionWhenNonExistingMovieId() {
 	}
+	*/
 }

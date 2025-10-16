@@ -13,6 +13,7 @@ public class UserServiceTests {
 	@InjectMocks
 	private UserService service;
 
+	/*
 	@Test
 	public void authenticatedShouldReturnUserEntityWhenUserExists() {
 	}
@@ -28,4 +29,5 @@ public class UserServiceTests {
 	@Test
 	public void loadUserByUsernameShouldThrowUsernameNotFoundExceptionWhenUserDoesNotExists() {
 	}
+	*/
 }
