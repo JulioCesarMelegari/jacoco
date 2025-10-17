@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.catalina.valves.rewrite.InternalRewriteMap.Escape;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,8 @@ public class MovieServiceTests {
 	@Mock
 	private MovieRepository repository;
 	
-	private String title;
+	private String movieTitle;
+	private long existingMovieId, nonExistingMovieId;
 	private MovieEntity movie;
 	private PageImpl<MovieEntity> page;
 	
@@ -41,7 +43,10 @@ public class MovieServiceTests {
 	@BeforeEach
 	void setUp() {
 		
-		title = "Test Movie";
+		movieTitle = "Test Movie";
+		existingMovieId = 1L;
+		nonExistingMovieId = 20L;
+		
 		movie = MovieFactory.createMovieEntity();
 		
 		page = new PageImpl<>(List.of(movie));
@@ -54,18 +59,24 @@ public class MovieServiceTests {
 	public void findAllShouldReturnPagedMovieDTO() {
 		
 		Pageable pageable = PageRequest.of(0, 12);
-		
-		Page<MovieDTO> result = service.findAll(title, pageable);
+		Page<MovieDTO> result = service.findAll(movieTitle, pageable);
 		
 		Assertions.assertNotNull(result);
 		Assertions.assertEquals(result.getSize(), 1);
-		Assertions.assertEquals(result.iterator().next().getTitle(), title);
-	}
-/*	
-	@Test
-	public void findByIdShouldReturnMovieDTOWhenIdExists() {
+		Assertions.assertEquals(result.iterator().next().getTitle(), movieTitle);
 	}
 	
+	@Test
+	public void findByIdShouldReturnMovieDTOWhenIdExists() {
+		
+		MovieDTO result = service.findById(1L);
+		
+		Assertions.assertNotNull(result);
+		//Assertions.assertEquals(result.getId(), existingMovieId);
+		//Assertions.assertEquals(result.getTitle(), movieTitle);
+		
+	}
+	/*
 	@Test
 	public void findByIdShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
 	}
