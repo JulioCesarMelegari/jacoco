@@ -52,6 +52,7 @@ public class MovieServiceTests {
 		page = new PageImpl<>(List.of(movie));
 
 		Mockito.when(repository.searchByTitle(any(), (Pageable)any())).thenReturn(page);
+		Mockito.when(repository.findById(existingMovieId)).thenReturn(Optional.of(movie));
 
 	}
 	
@@ -72,8 +73,8 @@ public class MovieServiceTests {
 		MovieDTO result = service.findById(1L);
 		
 		Assertions.assertNotNull(result);
-		//Assertions.assertEquals(result.getId(), existingMovieId);
-		//Assertions.assertEquals(result.getTitle(), movieTitle);
+		Assertions.assertEquals(result.getId(), existingMovieId);
+		Assertions.assertEquals(result.getTitle(), movieTitle);
 		
 	}
 	/*
