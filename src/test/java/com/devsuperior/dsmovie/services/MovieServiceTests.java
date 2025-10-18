@@ -2,11 +2,9 @@ package com.devsuperior.dsmovie.services;
 
 import static org.mockito.ArgumentMatchers.any;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.catalina.valves.rewrite.InternalRewriteMap.Escape;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,6 +36,7 @@ public class MovieServiceTests {
 	private String movieTitle;
 	private long existingMovieId, nonExistingMovieId;
 	private MovieEntity movie;
+	private MovieDTO movieDTO;
 	private PageImpl<MovieEntity> page;
 	
 	
@@ -48,11 +47,13 @@ public class MovieServiceTests {
 		existingMovieId = 1L;
 		nonExistingMovieId = 20L;
 		movie = MovieFactory.createMovieEntity();
+		movieDTO = new MovieDTO(movie);
 		page = new PageImpl<>(List.of(movie));
 
 		Mockito.when(repository.searchByTitle(any(), (Pageable)any())).thenReturn(page);
 		Mockito.when(repository.findById(existingMovieId)).thenReturn(Optional.of(movie));
-		Mockito.when(repository.findById(nonExistingMovieId)).thenThrow(ResourceNotFoundException.class);
+		Mockito.when(repository.findById(nonExistingMovieId)).thenReturn(Optional.empty());
+		Mockito.when(repository.save(any())).thenReturn(movie);
 		
 	}
 	
@@ -81,11 +82,15 @@ public class MovieServiceTests {
 			service.findById(nonExistingMovieId);
 		});	
 	}
-	/*
+	
 	@Test
 	public void insertShouldReturnMovieDTO() {
+		
+		MovieDTO result = service.insert(movieDTO);
+		Assertions.assertNotNull(result);
+		Assertions.assertEquals(result.getId(), movie.getId());	
 	}
-	
+	/*
 	@Test
 	public void updateShouldReturnMovieDTOWhenIdExists() {
 	}
