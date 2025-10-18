@@ -144,5 +144,4 @@ public class MovieServiceTests {
 			service.delete(dependentMovieId);
 		});
 	}
-	
 }
