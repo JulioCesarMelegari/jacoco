@@ -40,6 +40,8 @@ public class ScoreService {
 		
 		score = scoreRepository.saveAndFlush(score);
 		
+		movie.getScores().add(score);  // Adiciona o score recém-criado à lista de scores do movie
+		
 		double sum = 0.0;
 		for (ScoreEntity s : movie.getScores()) {
 			sum = sum + s.getValue();
