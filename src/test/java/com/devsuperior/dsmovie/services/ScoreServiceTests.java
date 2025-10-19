@@ -67,17 +67,13 @@ public class ScoreServiceTests {
 	
 	@Test
 	public void saveScoreShouldReturnMovieDTO() {
-		
 		ScoreDTO dto = new ScoreDTO(existingMovieId, 5.5);
-		
-		
 		MovieDTO result = service.saveScore(dto);
 		
 		Assertions.assertNotNull(result);
 		Assertions.assertEquals(movie.getId(), result.getId());
 		Assertions.assertEquals(5.5, result.getScore(), 0.01);
 		Assertions.assertEquals(1, result.getCount());
-		System.out.println(result);
 		
 		Mockito.verify(userService, Mockito.times(1)).authenticated();
 		Mockito.verify(movieRepository, Mockito.times(1)).findById(existingMovieId);

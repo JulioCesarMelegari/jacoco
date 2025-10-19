@@ -85,8 +85,7 @@ public class MovieServiceTests {
 	}
 	
 	@Test
-	public void findByIdShouldReturnMovieDTOWhenIdExists() {
-		
+	public void findByIdShouldReturnMovieDTOWhenIdExists() {		
 		MovieDTO result = service.findById(1L);
 		Assertions.assertNotNull(result);
 		Assertions.assertEquals(result.getId(), existingMovieId);
@@ -102,7 +101,6 @@ public class MovieServiceTests {
 	
 	@Test
 	public void insertShouldReturnMovieDTO() {
-		
 		MovieDTO result = service.insert(movieDTO);
 		Assertions.assertNotNull(result);
 		Assertions.assertEquals(result.getId(), movie.getId());	
@@ -110,7 +108,6 @@ public class MovieServiceTests {
 	
 	@Test
 	public void updateShouldReturnMovieDTOWhenIdExists() {
-		
 		MovieDTO result = service.update(existingMovieId, movieDTO);
 		Assertions.assertNotNull(result);
 		Assertions.assertEquals(result.getId(), existingMovieId);
